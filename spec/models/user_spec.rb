@@ -8,7 +8,9 @@ RSpec.describe User, type: :model do
 
   it "validations" do
     should validate_presence_of(:name)
-    should validate_presence_of(:email)
+    should validate_uniqueness_of(:email)
+    should validate_presence_of(:password_digest)
+    should have_secure_password
   end
 
   it "has method #parties_im_hosting that returns all of a user's parties and no others" do
