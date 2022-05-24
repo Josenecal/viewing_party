@@ -7,7 +7,11 @@ RSpec.describe "user login" do
 
     visit "/login"
 
-    fill_in :email
+    fill_in :email, with: "Bob@rossproductions.com"
+    fill_in :password, with: "happylittletree"
+    click_on "Login"
+
+    expect(current_path).to eq("/users/#{user.id}/")
   end
 
 end

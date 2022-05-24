@@ -16,7 +16,7 @@ RSpec.describe "landing page" do
     click_button "Create New User"
     fill_in "Name", with: "Carl"
     fill_in "Email", with: "carl@catmail.com"
-    fill_in "Password", with: "pAsSwOrD"
+    fill_in :password, with: "pAsSwOrD"
     fill_in "Password Confirmation", with: "pAsSwOrD"
     click_button "Submit"
 
