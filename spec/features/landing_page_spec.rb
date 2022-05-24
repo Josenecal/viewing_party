@@ -17,6 +17,7 @@ RSpec.describe "landing page" do
     fill_in "Name", with: "Carl"
     fill_in "Email", with: "carl@catmail.com"
     fill_in "Password", with: "pAsSwOrD"
+    fill_in "Confirm Password", with: "pAsSwOrD"
     click_button "Submit"
 
     expect(current_path).to match(/\/users\/\d+\//)
@@ -24,9 +25,9 @@ RSpec.describe "landing page" do
   end
 
   it "has a list of existing users that link to their dashboards" do
-    user_1 = User.create!(name: "Twitch", email: "twitch@dogmail.com", password: "test")
-    user_2 = User.create!(name: "Riley", email: "riley@dogmail.com", password: "this_is_a_password")
-    user_3 = User.create!(name: "Carl", email: "carl@catmail.com", password: "password")
+    user_1 = User.create!(name: "Twitch", email: "twitch@dogmail.com", password: "test", password_confirmation: "test")
+    user_2 = User.create!(name: "Riley", email: "riley@dogmail.com", password: "this_is_a_password", password_confirmation: "this_is_a_password")
+    user_3 = User.create!(name: "Carl", email: "carl@catmail.com", password: "password", password_confirmation: "password")
     visit '/'
 
     expect(page).to have_content("Twitch")
