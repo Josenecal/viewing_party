@@ -18,7 +18,7 @@ RSpec.describe "new viewing party page" do
    fill_in :email, with: user_1.email
    fill_in :password, with: user_1.password
    click_on "Login"
-    visit "/users/#{user_1.id}/movies/278/viewing-party/new"
+    visit "/movies/278/viewing-party/new"
 
     expect(page).to have_field(:duration)
     expect(page).to have_field(:start_time)
@@ -43,7 +43,7 @@ RSpec.describe "new viewing party page" do
    fill_in :email, with: user_1.email
    fill_in :password, with: user_1.password
    click_on "Login"
-    visit "/users/#{user_1.id}/movies/278/viewing-party/new"
+    visit "/movies/278/viewing-party/new"
 
     fill_in :duration, with: 150
     fill_in :start_time, with: "2022-05-13 17:39:57.273645"
