@@ -17,7 +17,7 @@ RSpec.describe "landing page" do
     fill_in "Name", with: "Carl"
     fill_in "Email", with: "carl@catmail.com"
     fill_in "Password", with: "pAsSwOrD"
-    fill_in "Confirm Password", with: "pAsSwOrD"
+    fill_in "Password Confirmation", with: "pAsSwOrD"
     click_button "Submit"
 
     expect(current_path).to match(/\/users\/\d+\//)
