@@ -8,12 +8,14 @@ RSpec.describe User, type: :model do
 
   it "validations" do
     should validate_presence_of(:name)
-    should validate_presence_of(:email)
+    should validate_uniqueness_of(:email)
+    should validate_presence_of(:password_digest)
+    should have_secure_password
   end
 
   it "has method #parties_im_hosting that returns all of a user's parties and no others" do
-    user1 = User.create!(name: "Twitch", email: "twitch@dogmail.com")
-    user2 = User.create!(name: "Clip Clop", email: "clickclack@dogmail.com")
+    user1 = User.create!(name: "Twitch", email: "twitch@dogmail.com", password: "password")
+    user2 = User.create!(name: "Clip Clop", email: "clickclack@dogmail.com", password: "password")
     party1 = Party.create!(host_id: user1.id, duration: 1, date: Time.parse("2022.04.23 16:30"), movie_id: 524)
     party2 = Party.create!(host_id: user1.id, duration: 15, date: Time.parse("2022.04.25 15:00"), movie_id: 740)
     party3 = Party.create!(host_id: user2.id, duration: 12, date: Time.parse("2022.04.28 11:00"), movie_id: 600)
@@ -22,5 +24,12 @@ RSpec.describe User, type: :model do
     expect(expected.include?(party1)).to eq true
     expect(expected.include?(party2)).to eq true
     expect(expected.include?(party3)).to eq false
+  end
+
+  it "bcrypt should hide password attribute" do
+    user1 = User.create!(name: "Mando", email: "nonyo@yahoo.com", password: "tHEwAy_it_is")
+    saved = User.find(user1.id)
+    expect(saved).not_to have_attribute(:password)
+    expect(saved.password_digest).not_to eq(user1.password)
   end
 end

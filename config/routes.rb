@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
   post '/users', to: 'users#create'
 
+  get '/login', to: 'users#login_form'
+  post '/login', to: 'users#login_user'
+
   get '/users/:id', to: 'users#show', as: :users_dashboard
   get '/users/:user_id/movies/:id/viewing-party/new', to: 'parties#new'
   get '/users/:user_id/movies/:id', to: 'movies#details'
