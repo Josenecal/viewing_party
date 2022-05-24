@@ -4,8 +4,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    new_user = User.create!(user_params)
-    redirect_to "/users/#{new_user.id}/"
+    new_user = User.new(user_params)
+    if new_user.save
+      redirect_to "/users/#{new_user.id}/"
+    else
+      flash[:error] = new_user.errors.full_messages.to_sentence
+      render :new
+    end
   end
 
   def show
@@ -15,6 +20,6 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.permit(:name, :email, :password)
+      params.permit(:name, :email, :password, :password_confirmation)
     end
 end
