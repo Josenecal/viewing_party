@@ -25,4 +25,11 @@ RSpec.describe User, type: :model do
     expect(expected.include?(party2)).to eq true
     expect(expected.include?(party3)).to eq false
   end
+
+  it "bcrypt should hide password attribute" do
+    user1 = User.create!(name: "Mando", email: "nonyo@yahoo.com", password: "tHEwAy_it_is")
+    saved = User.find(user1.id)
+    expect(saved).not_to have_attribute(:password)
+    expect(saved.password_digest).not_to eq(user1.password)
+  end
 end
