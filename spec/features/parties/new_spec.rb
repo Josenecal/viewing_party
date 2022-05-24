@@ -4,6 +4,7 @@ RSpec.describe "new viewing party page" do
   it "has the name of the movie and form to create new party" do
     json_response = File.read("./spec/fixtures/shawshank.json")
     user_1 = User.create!(name: "Twitch", email: "twitch@dogmail.com", password: "password", password_confirmation: "password")
+
     stub_request(:get, "https://api.themoviedb.org/3/movie/278?api_key=131d23d3e9d511ff6fce6fdc6799d9be&append_to_response=credits,reviews").
          with(
            headers: {
@@ -12,6 +13,11 @@ RSpec.describe "new viewing party page" do
        	  'User-Agent'=>'Faraday v2.3.0'
            }).
          to_return(status: 200, body: json_response, headers: {})
+
+   visit "/login"
+   fill_in :email, with: user_1.email
+   fill_in :password, with: user_1.password
+   click_on "Login"
     visit "/users/#{user_1.id}/movies/278/viewing-party/new"
 
     expect(page).to have_field(:duration)
@@ -32,6 +38,11 @@ RSpec.describe "new viewing party page" do
        	  'User-Agent'=>'Faraday v2.3.0'
            }).
          to_return(status: 200, body: json_response, headers: {})
+
+   visit "/login"
+   fill_in :email, with: user_1.email
+   fill_in :password, with: user_1.password
+   click_on "Login"
     visit "/users/#{user_1.id}/movies/278/viewing-party/new"
 
     fill_in :duration, with: 150
@@ -40,7 +51,7 @@ RSpec.describe "new viewing party page" do
     page.check("Carl")
     click_button "Create Party"
 
-    expect(current_path).to eq("/users/#{user_1.id}")
+    expect(current_path).to eq("/dashboard")
     expect(page).to have_content("Save the date: Fri, May 13 2022")
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe "landing page" do
     fill_in "Password Confirmation", with: "pAsSwOrD"
     click_button "Submit"
 
-    expect(current_path).to match(/\/users\/\d+\//)
+    expect(current_path).to eq "/dashboard"
     expect(page).to have_content("Carl")
   end
 
@@ -35,7 +35,7 @@ RSpec.describe "landing page" do
     expect(page).to have_content("Carl")
 
     click_link "Riley"
-    expect(current_path).to eq("/users/#{user_2.id}")
+    expect(current_path).to eq("/users/")
   end
 
   it "has a link to the landing page" do

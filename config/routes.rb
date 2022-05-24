@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
 
-  get '/users/:id', to: 'users#show', as: :users_dashboard
+  get '/dashboard', to: 'dashboard#user_dashboard', as: :users_dashboard
   get '/users/:user_id/movies/:id/viewing-party/new', to: 'parties#new'
   get '/users/:user_id/movies/:id', to: 'movies#details'
   get '/users/:id/movies', to: 'movies#results'
