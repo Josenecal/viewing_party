@@ -1,6 +1,10 @@
 class PartiesController < ApplicationController
 
   def new
+    if !session[:user_id]
+      flash[:alert] = "You must be logged in as a registered user to create a new party"
+      redirect_to "/movies/#{params[:id]}"
+    end
     movie_facade = MovieFacade.new
     @movie = movie_facade.search_by_id(params[:id])
     @users = User.all

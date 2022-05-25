@@ -47,4 +47,36 @@ RSpec.describe "landing page" do
 
     expect(page).to have_link("Landing Page")
   end
+
+  it "shows buttons to dashboard and to logout if user is logged in" do
+    user_1 = User.create!(name: "Twitch", email: "twitch@dogmail.com", password: "test", password_confirmation: "test")
+    visit '/'
+    expect(page).not_to have_button "My Dashboard"
+    expect(page).not_to have_button "Logout"
+    expect(page).to have_button "Create An Account"
+    click_on "Login"
+
+    fill_in :email, with: user_1.email
+    fill_in :password, with: user_1.password
+    click_on "Login"
+
+    visit "/"
+    expect(page).to have_button "My Dashboard"
+    expect(page).to have_button "Logout"
+    expect(page).not_to have_button "Create An Account"
+    expect(page).not_to have_button "Login"
+  end
+
+  it "button to logout loggs user out" do
+    user_1 = User.create!(name: "Twitch", email: "twitch@dogmail.com", password: "test", password_confirmation: "test")
+    visit '/login'
+    fill_in :email, with: user_1.email
+    fill_in :password, with: user_1.password
+    click_on "Login"
+    visit '/'
+    click_on "Logout"
+
+    expect(page).to have_button "Login"
+    expect(page).to have_button "Create An Account"
+  end
 end

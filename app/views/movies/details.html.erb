@@ -8,7 +8,7 @@
                     <% end %>
 <br>
 <% if @movie.cast %>
-  <h3> Cast: </h3> <% @movie.cast.each do |cast| %>
+  <h3> Cast: </h3> <% @movie.cast.first(10).each do |cast| %>
     <p> <%= cast[:name] %> - <%= cast[:character] %> </p>
   <% end %>
 <% end %>
@@ -20,5 +20,5 @@
   <% end %>
 <% end %>
 
-<%= button_to "Create Viewing Party", "/users/#{params[:user_id]}/movies/#{@movie.id}/viewing-party/new", method: :get %>
-<%= link_to "Discover Page", "/users/#{params[:user_id]}/discover" %>
+<%= button_to "Create Viewing Party", "/movies/#{@movie.id}/viewing-party/new", method: :get %>
+<%= link_to "Discover Page", "/discover" %>
