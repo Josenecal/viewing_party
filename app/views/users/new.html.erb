@@ -2,11 +2,11 @@
 <table>
 <tr><td><%= f.label :name, "Name:"%></td>
 <td><%= f.text_field :name, required: true , value: params[:name] %></td></tr>
-<tr><td><%= f.label :email, "Email" %></td>
+<tr><td><%= f.label :email, "Email:" %></td>
 <td><%= f.text_field :email, required: true, value: params[:email] %><td></tr>
-<tr><td><%= f.label  :password, "Password" %></td>
+<tr><td><%= f.label  :password, "Password:" %></td>
 <td><%= f.password_field :password, required: true %></td></tr>
-<tr><td><%= f.label :password_confirmation, "Password Confirmation" %></td>
+<tr><td><%= f.label :password_confirmation, "Password Confirmation:" %></td>
 <td><%= f.password_field :password_confirmation, required: true %></td></tr>
 <tr><td><%= f.submit "Submit" %><td></tr>
 </table>
